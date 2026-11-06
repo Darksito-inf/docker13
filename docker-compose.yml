@@ -1,0 +1,35 @@
+services:
+  web:
+    build: .
+    container_name: pepitonedor
+    ports:
+      - "8080:80"
+    networks: 
+      - pepito_app_net
+      - pepito_db_net
+    
+  db:
+    image: mariadb:11.4
+    container_name: pepitonedor
+    environment:
+      MARIADB_DATABASE: cloud
+      MARIADB_USER: pepito
+      MARIADB_PASSWORD: pasword
+      MARIADB_ROOT_PASSWORD: root_pass
+    networks:
+      - pepito_db_net
+
+networks:
+  pepito_app_net:
+    driver: bridge
+  pepito_db_net: 
+    driver: bridge
+
+
+
+      #depends_on:
+      #db: 
+      #  condition: services_healthy
+
+      
+  db:
